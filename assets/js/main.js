@@ -10,20 +10,20 @@
     // Scroll Reveal Animation (IntersectionObserver)
     // =============================================================================
     function initScrollReveal() {
-        const revealElements = document.querySelectorAll('.scroll-reveal');
+        var revealElements = document.querySelectorAll('.scroll-reveal');
         
         if (revealElements.length === 0) return;
 
         // IntersectionObserver がサポートされているか確認
         if ('IntersectionObserver' in window) {
-            const observerOptions = {
+            var observerOptions = {
                 root: null,
                 rootMargin: '0px 0px -50px 0px',
                 threshold: 0.1
             };
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
                         // 一度表示したら監視を解除（パフォーマンス向上）
@@ -32,12 +32,12 @@
                 });
             }, observerOptions);
 
-            revealElements.forEach(el => {
+            revealElements.forEach(function(el) {
                 observer.observe(el);
             });
         } else {
             // IntersectionObserver 非対応ブラウザのフォールバック
-            revealElements.forEach(el => {
+            revealElements.forEach(function(el) {
                 el.classList.add('is-visible');
             });
         }
@@ -47,19 +47,19 @@
     // Before/After Slider (BA Slider)
     // =============================================================================
     function initBASliders() {
-        const sliders = document.querySelectorAll('.ba-slider');
+        var sliders = document.querySelectorAll('.ba-slider');
         
-        sliders.forEach(slider => {
-            const range = slider.querySelector('.ba-slider__range');
-            const before = slider.querySelector('.ba-slider__before');
-            const handle = slider.querySelector('.ba-slider__handle');
+        sliders.forEach(function(slider) {
+            var range = slider.querySelector('.ba-slider__range');
+            var before = slider.querySelector('.ba-slider__before');
+            var handle = slider.querySelector('.ba-slider__handle');
 
             if (!range || !before) return;
 
             function updateSlider(value) {
-                const percent = value + '%';
+                var percent = value + '%';
                 if (before) {
-                    before.style.clipPath = `inset(0 ${100 - value}% 0 0)`;
+                    before.style.clipPath = 'inset(0 ' + (100 - value) + '% 0 0)';
                 }
                 if (handle) {
                     handle.style.left = percent;
@@ -80,19 +80,20 @@
     // Smooth Scroll for Anchor Links
     // =============================================================================
     function initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
+                var href = this.getAttribute('href');
                 
                 // # だけの場合はスキップ
                 if (href === '#') return;
 
-                const target = document.querySelector(href);
+                var target = document.querySelector(href);
                 if (target) {
                     e.preventDefault();
                     
-                    const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                    var header = document.querySelector('.site-header');
+                    var headerHeight = header ? header.offsetHeight : 0;
+                    var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
 
                     window.scrollTo({
                         top: targetPosition,
@@ -109,13 +110,13 @@
     function initLazyLoad() {
         // ネイティブ lazy loading が使えない場合のフォールバック
         if (!('loading' in HTMLImageElement.prototype)) {
-            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            var lazyImages = document.querySelectorAll('img[loading="lazy"]');
             
             if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
+                var imageObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
                         if (entry.isIntersecting) {
-                            const img = entry.target;
+                            var img = entry.target;
                             if (img.dataset.src) {
                                 img.src = img.dataset.src;
                             }
@@ -124,13 +125,15 @@
                     });
                 });
 
-                lazyImages.forEach(img => imageObserver.observe(img));
+                lazyImages.forEach(function(img) {
+                    imageObserver.observe(img);
+                });
             }
         }
     }
 
     // =============================================================================
-    // Initialize on DOM Ready
+    // Initialize
     // =============================================================================
     function init() {
         initScrollReveal();
@@ -139,11 +142,36 @@
         initLazyLoad();
     }
 
-    // DOM が読み込まれたら初期化
+    // =============================================================================
+    // 複数の方法で初期化を確実に実行
+    // =============================================================================
+    
+    // 方法1: DOMContentLoaded
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
+        // 方法2: 既にDOMが読み込まれている場合は即実行
         init();
+    }
+    
+    // 方法3: windowのloadイベントでも再確認（フォールバック）
+    window.addEventListener('load', function() {
+        // is-visibleが一つも付与されていなければ再初期化
+        if (document.querySelectorAll('.scroll-reveal.is-visible').length === 0) {
+            init();
+        }
+    });
+
+    // 方法4: jQueryが存在する場合はjQueryのreadyも使用
+    if (typeof jQuery !== 'undefined') {
+        jQuery(document).ready(function() {
+            // 少し遅延させて確実に実行
+            setTimeout(function() {
+                if (document.querySelectorAll('.scroll-reveal.is-visible').length === 0) {
+                    init();
+                }
+            }, 100);
+        });
     }
 
 })();
