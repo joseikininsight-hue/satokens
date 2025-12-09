@@ -1,0 +1,38 @@
+@charset "UTF-8";
+/*
+Theme Name: サトー建装 公式Webサイトテーマ
+Theme URI: https://satokens.jp/
+Author: Sato Kenso
+Description: 静岡県御殿場市・東部エリアの塗装専門店「サトー建装」公式テーマ
+Version: 3.2.0
+*/
+
+/* ==========================================================================
+   1. 変数定義 (Design Tokens)
+   ========================================================================== */
+:root {
+    /* Colors */
+    --color-primary: #0056b3;       /* 信頼のブルー */
+    --color-primary-dark: #004494;
+    --color-primary-light: #e3f2fd; /* 薄いブルー（背景用） */
+    --color-accent: #ff8c00;        /* 成約のオレンジ */
+    --color-accent-hover: #e67e00;
+    --color-text: #333333;          /* メインテキスト */
+    --color-text-light: #666666;
+    --color-gold: #c5a365;          /* 実績・権威 */
+    --color-white: #ffffff;
+    --color-bg-gray: #f9f9f9;
+    --color-line: #06c755;          /* LINEグリーン */
+    
+    /* Typography */
+    --font-base: "Noto Sans JP", sans-serif;
+    --font-en: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    
+    /* Layout */
+    --container-width: 1200px;
+    --header-height: 80px;
+    --border-radius: 12px;
+    --shadow-card: 0 5px 15px rgba(0,0,0,0.05);
+    --shadow-pop: 0 5px 0 rgba(0,0,0,0.1);
+}
+
