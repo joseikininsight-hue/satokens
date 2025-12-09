@@ -601,3 +601,5 @@ img { max-width: 100%; height: auto; vertical-align: bottom; }
     .news-grid { grid-template-columns: 1fr; }
 }
 </style>
+
+<?php get_footer(); ?>

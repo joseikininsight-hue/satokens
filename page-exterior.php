@@ -812,3 +812,5 @@ img { max-width: 100%; height: auto; vertical-align: bottom; }
     .link-card { width: 100%; justify-content: flex-start; }
 }
 </style>
+
+<?php get_footer(); ?>

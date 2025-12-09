@@ -761,3 +761,5 @@ img { max-width: 100%; height: auto; vertical-align: bottom; }
     .pc-only { display: none; }
 }
 </style>
+
+<?php get_footer(); ?>

@@ -1540,7 +1540,7 @@ if (!function_exists('sato_enqueue_assets')) {
             wp_enqueue_script(
                 'sato-header-js',
                 SATO_THEME_ASSETS . '/js/header.js',
-                [],
+                ['jquery'],
                 SATO_THEME_VERSION,
                 true
             );
