@@ -1511,13 +1511,13 @@ if (!function_exists('sato_enqueue_assets')) {
             );
         }
 
-        // フロントページ専用CSS
-        if (is_front_page() && file_exists(SATO_THEME_ASSETS_DIR . '/css/front-page.css')) {
+        // フロントページ専用CSS（常に読み込み、キャッシュバスティング付き）
+        if (file_exists(SATO_THEME_ASSETS_DIR . '/css/front-page.css')) {
             wp_enqueue_style(
                 'sato-front-page-css',
                 SATO_THEME_ASSETS . '/css/front-page.css',
                 ['sato-style'],
-                SATO_THEME_VERSION
+                filemtime(SATO_THEME_ASSETS_DIR . '/css/front-page.css')
             );
         }
 
@@ -1546,13 +1546,13 @@ if (!function_exists('sato_enqueue_assets')) {
             );
         }
 
-        // フロントページ専用JS
-        if (is_front_page() && file_exists(SATO_THEME_ASSETS_DIR . '/js/front-page.js')) {
+        // フロントページ専用JS（常に読み込み、キャッシュバスティング付き）
+        if (file_exists(SATO_THEME_ASSETS_DIR . '/js/front-page.js')) {
             wp_enqueue_script(
                 'sato-front-page-js',
                 SATO_THEME_ASSETS . '/js/front-page.js',
                 ['jquery'],
-                SATO_THEME_VERSION,
+                filemtime(SATO_THEME_ASSETS_DIR . '/js/front-page.js'),
                 true
             );
         }

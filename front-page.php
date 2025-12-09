@@ -14,13 +14,7 @@ if (!defined('ABSPATH')) {
 
 get_header();
 
-// フロントページ用CSSをインラインで読み込み
-$front_css_path = get_template_directory() . '/assets/css/front-page.css';
-if (file_exists($front_css_path)) {
-    echo '<style id="front-page-inline-css">';
-    include $front_css_path;
-    echo '</style>';
-}
+// CSS/JSは functions.php の sato_enqueue_assets() で自動読み込み
 ?><?php
 
 // =============================================================================
@@ -845,11 +839,6 @@ $schema_local_business = [
 </main>
 
 <?php
-// フロントページ用JSを読み込み
-$front_js_path = get_template_directory() . '/assets/js/front-page.js';
-$front_js_url = get_template_directory_uri() . '/assets/js/front-page.js';
-$front_js_ver = file_exists($front_js_path) ? filemtime($front_js_path) : '1.0';
+// CSS/JSは functions.php の sato_enqueue_assets() で自動読み込み
+get_footer();
 ?>
-<script src="<?php echo esc_url($front_js_url); ?>?ver=<?php echo esc_attr($front_js_ver); ?>"></script>
-
-<?php get_footer(); ?>
