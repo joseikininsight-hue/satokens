@@ -14,13 +14,14 @@ if (!defined('ABSPATH')) {
 
 get_header();
 
-// フロントページ用CSSを直接読み込み（wp_headの後に追加）
+// フロントページ用CSSをインラインで読み込み
 $front_css_path = get_template_directory() . '/assets/css/front-page.css';
-$front_css_url = get_template_directory_uri() . '/assets/css/front-page.css';
-$front_css_ver = file_exists($front_css_path) ? filemtime($front_css_path) : '1.0';
-?>
-<link rel="stylesheet" href="<?php echo esc_url($front_css_url); ?>?ver=<?php echo esc_attr($front_css_ver); ?>" type="text/css" media="all">
-<?php
+if (file_exists($front_css_path)) {
+    echo '<style id="front-page-inline-css">';
+    include $front_css_path;
+    echo '</style>';
+}
+?><?php
 
 // =============================================================================
 // 1. 設定・データ取得
