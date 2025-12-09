@@ -12,6 +12,23 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// フロントページ用CSS/JSを読み込み
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_style(
+        'sato-front-page-css',
+        get_template_directory_uri() . '/assets/css/front-page.css',
+        ['sato-style'],
+        filemtime(get_template_directory() . '/assets/css/front-page.css')
+    );
+    wp_enqueue_script(
+        'sato-front-page-js',
+        get_template_directory_uri() . '/assets/js/front-page.js',
+        ['jquery'],
+        filemtime(get_template_directory() . '/assets/js/front-page.js'),
+        true
+    );
+}, 20);
+
 get_header();
 
 // =============================================================================
