@@ -30,9 +30,50 @@ Version: 3.2.0
     
     /* Layout */
     --container-width: 1200px;
+    --container-padding: 1.5rem;
     --header-height: 80px;
     --border-radius: 12px;
     --shadow-card: 0 5px 15px rgba(0,0,0,0.05);
     --shadow-pop: 0 5px 0 rgba(0,0,0,0.1);
 }
 
+/* ==========================================================================
+   2. Global Container
+   ========================================================================== */
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+@media (max-width: 768px) {
+    :root {
+        --container-padding: 1rem;
+    }
+}
+
+/* ==========================================================================
+   3. Global Utilities
+   ========================================================================== */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-base);
+    color: var(--color-text);
+    line-height: 1.7;
+    overflow-x: hidden;
+}

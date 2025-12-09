@@ -639,3 +639,5 @@ img { max-width: 100%; height: auto; vertical-align: bottom; }
     .page-header__title { font-size: 2rem; }
 }
 </style>
+
+<?php get_footer(); ?>

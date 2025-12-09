@@ -880,3 +880,5 @@ img {
     .link-card { width: 100%; justify-content: flex-start; }
 }
 </style>
+
+<?php get_footer(); ?>

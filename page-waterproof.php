@@ -729,3 +729,5 @@ img {
     .flow-step__num { margin-bottom: 0; flex-shrink: 0; }
 }
 </style>
+
+<?php get_footer(); ?>

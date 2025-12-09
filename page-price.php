@@ -663,3 +663,5 @@ document.addEventListener('DOMContentLoaded', function() {
     calculate();
 });
 </script>
+
+<?php get_footer(); ?>
