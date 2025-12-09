@@ -12,24 +12,15 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// フロントページ用CSS/JSを読み込み
-add_action('wp_enqueue_scripts', function() {
-    wp_enqueue_style(
-        'sato-front-page-css',
-        get_template_directory_uri() . '/assets/css/front-page.css',
-        ['sato-style'],
-        filemtime(get_template_directory() . '/assets/css/front-page.css')
-    );
-    wp_enqueue_script(
-        'sato-front-page-js',
-        get_template_directory_uri() . '/assets/js/front-page.js',
-        ['jquery'],
-        filemtime(get_template_directory() . '/assets/js/front-page.js'),
-        true
-    );
-}, 20);
-
 get_header();
+
+// フロントページ用CSSを直接読み込み（wp_headの後に追加）
+$front_css_path = get_template_directory() . '/assets/css/front-page.css';
+$front_css_url = get_template_directory_uri() . '/assets/css/front-page.css';
+$front_css_ver = file_exists($front_css_path) ? filemtime($front_css_path) : '1.0';
+?>
+<link rel="stylesheet" href="<?php echo esc_url($front_css_url); ?>?ver=<?php echo esc_attr($front_css_ver); ?>" type="text/css" media="all">
+<?php
 
 // =============================================================================
 // 1. 設定・データ取得
@@ -851,5 +842,13 @@ $schema_local_business = [
     </section>
 
 </main>
+
+<?php
+// フロントページ用JSを読み込み
+$front_js_path = get_template_directory() . '/assets/js/front-page.js';
+$front_js_url = get_template_directory_uri() . '/assets/js/front-page.js';
+$front_js_ver = file_exists($front_js_path) ? filemtime($front_js_path) : '1.0';
+?>
+<script src="<?php echo esc_url($front_js_url); ?>?ver=<?php echo esc_attr($front_js_ver); ?>"></script>
 
 <?php get_footer(); ?>
