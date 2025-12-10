@@ -142,21 +142,25 @@ $is_transparent = $is_front;
 
             <!-- Desktop Navigation -->
             <nav class="header-nav" role="navigation" aria-label="メインナビゲーション">
+                <ul class="header-nav__list">
+                    <!-- ホームボタン（常に表示） -->
+                    <li class="header-nav__item header-nav__item--home">
+                        <a href="<?php echo esc_url(home_url('/')); ?>" class="header-nav__link header-nav__link--home <?php echo $is_front ? 'is-current' : ''; ?>" aria-label="ホーム">
+                            <?php sato_icon('home', 18); ?>
+                        </a>
+                    </li>
                 <?php
                 if (has_nav_menu('primary')) {
+                    // wp_nav_menuを使用する場合、itemsのみ出力
                     wp_nav_menu([
                         'theme_location' => 'primary',
-                        'menu_class'     => 'header-nav__list',
                         'container'      => false,
                         'fallback_cb'    => false,
                         'depth'          => 2,
+                        'items_wrap'     => '%3$s', // ul無しでliのみ出力
                     ]);
                 } else {
                     ?>
-                    <ul class="header-nav__list">
-                        <li class="header-nav__item">
-                            <a href="<?php echo esc_url(home_url('/')); ?>" class="header-nav__link <?php echo $is_front ? 'is-current' : ''; ?>">ホーム</a>
-                        </li>
                         <li class="header-nav__item header-nav__item--has-children">
                             <a href="<?php echo esc_url(home_url('/service/')); ?>" class="header-nav__link">
                                 サービス
@@ -187,10 +191,10 @@ $is_transparent = $is_front;
                         <li class="header-nav__item">
                             <a href="<?php echo esc_url(home_url('/news/')); ?>" class="header-nav__link">お知らせ</a>
                         </li>
-                    </ul>
                     <?php
                 }
                 ?>
+                </ul>
             </nav>
 
             <!-- Header Actions (PC) -->
